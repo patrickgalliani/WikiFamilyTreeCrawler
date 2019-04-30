@@ -25,8 +25,10 @@ def find_relatives(soup, pattern):
     ).parent.find_all('a')
     relatives = set()
     for tag in tags:
-        wiki_extension = tag['href'].encode('utf-8').strip()
-        name = unwikify_name(wiki_extension.replace('/wiki/', ''))
+        wiki_extension = (
+        	tag['href'].encode('utf-8').strip().replace('/wiki/', '')
+        )
+        name = unwikify_name(wiki_extension)
         if any(c.isalpha() for c in name) and '#' not in wiki_extension:
             relative = Figure(name, wiki_extension)
             relatives.add(relative)
